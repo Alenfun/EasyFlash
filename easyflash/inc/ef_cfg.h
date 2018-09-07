@@ -30,6 +30,14 @@
 #ifndef EF_CFG_H_
 #define EF_CFG_H_
 
+<<<<<<< HEAD
+#include "hsf.h"
+
+#define PAGE_SIZE   HFFLASH_PAGE_SIZE
+
+
+=======
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 /* using ENV function */
 #define EF_USING_ENV
 /* using wear leveling mode for ENV */
@@ -54,7 +62,11 @@
 /* #define EF_USING_LOG */
 
 /* the minimum size of flash erasure */
+<<<<<<< HEAD
+#define EF_ERASE_MIN_SIZE     PAGE_SIZE    /* @note you must define it for a value */
+=======
 #define EF_ERASE_MIN_SIZE         /* @note you must define it for a value */
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 
 /**
  *
@@ -86,6 +98,17 @@
  * @note the log area size must be more than twice of EF_ERASE_MIN_SIZE
  */
 /* backup area start address */
+<<<<<<< HEAD
+#define EF_START_ADDR         (UFLASH_ADDRESS + (4096*4))   /* @note you must define it for a value */
+/* the user setting size of ENV, must be word alignment */
+#define ENV_USER_SETTING_SIZE    (4096) /* @note you must define it for a value if you used ENV */
+/* ENV area total bytes size in normal mode. */
+#define ENV_AREA_SIZE            (4096) /* @note you must define it for a value if you used ENV */
+/* saved log area size */
+#define LOG_AREA_SIZE             (4096<<3)/* @note you must define it for a value if you used log */
+
+/* print debug information of flash */  
+=======
 #define EF_START_ADDR             /* @note you must define it for a value */
 /* the user setting size of ENV, must be word alignment */
 #define ENV_USER_SETTING_SIZE     /* @note you must define it for a value if you used ENV */
@@ -95,6 +118,7 @@
 #define LOG_AREA_SIZE             /* @note you must define it for a value if you used log */
 
 /* print debug information of flash */
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 #define PRINT_DEBUG
 
 #endif /* EF_CFG_H_ */

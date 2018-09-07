@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 /*
  * This file is part of the EasyFlash Library.
  *
@@ -62,9 +66,19 @@
  *
  * @return result
  */
+<<<<<<< HEAD
+EfErrCode
+easyflash_init(void)
+{
+    extern EfErrCode ef_port_init(ef_env const **default_env,
+				  size_t * default_env_size);
+    extern EfErrCode ef_env_init(ef_env const *default_env,
+				 size_t default_env_size);
+=======
 EfErrCode easyflash_init(void) {
     extern EfErrCode ef_port_init(ef_env const **default_env, size_t *default_env_size);
     extern EfErrCode ef_env_init(ef_env const *default_env, size_t default_env_size);
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     extern EfErrCode ef_iap_init(void);
     extern EfErrCode ef_log_init(void);
 
@@ -75,18 +89,45 @@ EfErrCode easyflash_init(void) {
     result = ef_port_init(&default_env_set, &default_env_set_size);
 
 #ifdef EF_USING_ENV
+<<<<<<< HEAD
+    if (result == EF_NO_ERR)
+    {
+	result = ef_env_init(default_env_set, default_env_set_size);
+=======
     if (result == EF_NO_ERR) {
         result = ef_env_init(default_env_set, default_env_set_size);
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     }
 #endif
 
 #ifdef EF_USING_IAP
+<<<<<<< HEAD
+    if (result == EF_NO_ERR)
+    {
+	result = ef_iap_init();
+=======
     if (result == EF_NO_ERR) {
         result = ef_iap_init();
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     }
 #endif
 
 #ifdef EF_USING_LOG
+<<<<<<< HEAD
+    if (result == EF_NO_ERR)
+    {
+	result = ef_log_init();
+    }
+#endif
+
+    if (result == EF_NO_ERR)
+    {
+	EF_INFO("EasyFlash V%s is initialize success.\n", EF_SW_VERSION);
+    }
+    else
+    {
+	EF_INFO("EasyFlash V%s is initialize fail.\n", EF_SW_VERSION);
+=======
     if (result == EF_NO_ERR) {
         result = ef_log_init();
     }
@@ -96,6 +137,7 @@ EfErrCode easyflash_init(void) {
         EF_INFO("EasyFlash V%s is initialize success.\n", EF_SW_VERSION);
     } else {
         EF_INFO("EasyFlash V%s is initialize fail.\n", EF_SW_VERSION);
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     }
     EF_INFO("You can get the latest version on https://github.com/armink/EasyFlash .\n");
 

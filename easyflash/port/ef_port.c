@@ -29,10 +29,25 @@
 #include <easyflash.h>
 #include <stdarg.h>
 
+<<<<<<< HEAD
+#include "irq.h"
+/* default environment variables set for user */
+static const ef_env default_env_set[] = {
+        {"iap_need_copy_app","0"},
+        {"iap_copy_app_size","0"},
+        {"stop_in_bootloader","0"},
+        {"device_id","1"},
+        {"boot_times","0"},
+};
+
+static char log_buf[256];
+
+=======
 /* default environment variables set for user */
 static const ef_env default_env_set[] = {
 
 };
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 
 /**
  * Flash port for hardware initialize.
@@ -67,6 +82,13 @@ EfErrCode ef_port_read(uint32_t addr, uint32_t *buf, size_t size) {
     EF_ASSERT(size % 4 == 0);
 
     /* You can add your code under here. */
+<<<<<<< HEAD
+    addr -= UFLASH_ADDRESS;
+
+    hfuflash_read(addr, buf, size);
+
+=======
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 
     return result;
 }
@@ -83,12 +105,36 @@ EfErrCode ef_port_read(uint32_t addr, uint32_t *buf, size_t size) {
  */
 EfErrCode ef_port_erase(uint32_t addr, size_t size) {
     EfErrCode result = EF_NO_ERR;
+<<<<<<< HEAD
+    size_t start_pages, erase_pages, i;
+    uint32_t start_page_addr, end_page_addr;
+
+    EF_DEBUG("addr:%08x  size:%d\r\n\r\n", addr, size);
+    /* make sure the start address is a multiple of EF_ERASE_MIN_SIZE */
+    EF_ASSERT(addr % EF_ERASE_MIN_SIZE == 0);
+
+    start_page_addr = (addr & (~(uint32_t)(EF_ERASE_MIN_SIZE-1))) - UFLASH_ADDRESS ;
+    end_page_addr   = (addr + size) - UFLASH_ADDRESS;
+    /* calculate pages */
+    start_pages     = start_page_addr >> 12;
+    erase_pages     = (end_page_addr - start_page_addr) >> 12;
+    if( end_page_addr & (uint32_t)(PAGE_SIZE-1) )
+    {
+        erase_pages ++;
+    }
+
+    u_printf("\r\nstart_page_addr=%08x end_page_addr=%08x\r\nstart_pages=%d erase_pages=%d\r\n\r\n",
+        start_page_addr, end_page_addr, start_pages, erase_pages);
+
+    hfuflash_erase_page(start_page_addr, erase_pages);
+=======
 
     /* make sure the start address is a multiple of EF_ERASE_MIN_SIZE */
     EF_ASSERT(addr % EF_ERASE_MIN_SIZE == 0);
 
     /* You can add your code under here. */
 
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     return result;
 }
 /**
@@ -108,6 +154,11 @@ EfErrCode ef_port_write(uint32_t addr, const uint32_t *buf, size_t size) {
     EF_ASSERT(size % 4 == 0);
     
     /* You can add your code under here. */
+<<<<<<< HEAD
+    addr -= UFLASH_ADDRESS;
+    hfuflash_write(addr, buf, size);
+=======
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 
     return result;
 }
@@ -118,7 +169,11 @@ EfErrCode ef_port_write(uint32_t addr, const uint32_t *buf, size_t size) {
 void ef_port_env_lock(void) {
     
     /* You can add your code under here. */
+<<<<<<< HEAD
+    // irq_disable();
+=======
     
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
 }
 
 /**
@@ -127,6 +182,10 @@ void ef_port_env_lock(void) {
 void ef_port_env_unlock(void) {
     
     /* You can add your code under here. */
+<<<<<<< HEAD
+    // irq_enable();
+=======
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     
 }
 
@@ -150,7 +209,16 @@ void ef_log_debug(const char *file, const long line, const char *format, ...) {
     va_start(args, format);
 
     /* You can add your code under here. */
+<<<<<<< HEAD
+    ef_print("[Flash](%s:%d) ", file, line);
+    /* must use vprintf to print */
+    vsprintf(log_buf, format, args);
+    ef_print("%s", log_buf);
+    printf("\r");
+
+=======
     
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     va_end(args);
 
 #endif
@@ -170,7 +238,15 @@ void ef_log_info(const char *format, ...) {
     va_start(args, format);
 
     /* You can add your code under here. */
+<<<<<<< HEAD
+    ef_print("[Flash]");
+    /* must use vprintf to print */
+    vsprintf(log_buf, format, args);
+    ef_print("%s", log_buf);
+
+=======
     
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     va_end(args);
 }
 /**
@@ -185,7 +261,13 @@ void ef_print(const char *format, ...) {
     /* args point to the first variable parameter */
     va_start(args, format);
 
+<<<<<<< HEAD
+    /* must use vprintf to print */
+    vsprintf(log_buf, format, args);
+    u_printf("%s", log_buf);
+=======
     /* You can add your code under here. */
+>>>>>>> 90184f9f078915d78da0bbf2769db2c11c6cba43
     
     va_end(args);
 }
